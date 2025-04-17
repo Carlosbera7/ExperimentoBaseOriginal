@@ -1,6 +1,6 @@
 # Experimento: Classificação de Discurso de Ódio em Português com LSTM e XGBoost
 
-Este repositório contém a implementação de um experimento descrito no artigo, que combina LSTM e XGBoost para a classificação de discurso de ódio em português. O método utiliza embeddings pré-treinados GloVe, uma LSTM para extração de representações e um modelo XGBoost para classificação final.
+Este repositório contém a implementação de um experimento descrito no artigo (Fortuna, Paula, et al., 2019), que combina LSTM e XGBoost para a classificação de discurso de ódio em português. O método utiliza embeddings pré-treinados GloVe, uma LSTM para extração de representações e um modelo XGBoost para classificação final.
 
 ## Descrição do Experimento
 O experimento segue as etapas descritas no artigo:
@@ -68,7 +68,7 @@ weighted avg       0.72      0.78      0.69       567
 ![Figure_1](https://github.com/user-attachments/assets/895e3251-73d5-452d-b8ab-5b4f0aaf18f6)
 
 ## Estrutura do Repositório
-- `Scripts`: Script principal para executar o experimento.
-- `data/`: Pasta contendo o conjunto de dados e o Embeddings GloVe pré-treinados (necessário para execução).
+-  [`Scripts/SalvaParticoes.py`](https://github.com/Carlosbera7/ExperimentoBaseOriginal/blob/main/Script/ClassificadorOriginal.py): Script principal para executar o experimento.
+- [`Data/`](https://github.com/Carlosbera7/ExperimentoBaseOriginal/tree/main/Data): Pasta contendo o conjunto de dados e o Embeddings GloVe pré-treinados (necessário para execução).
 
 
