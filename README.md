@@ -70,6 +70,6 @@ weighted avg       0.72      0.78      0.69       567
 ## Estrutura do Repositório
 -  [`Scripts/SalvaParticoes.py`](https://github.com/Carlosbera7/ExperimentoBaseOriginal/blob/main/Script/ClassificadorOriginal.py): Script principal para executar o experimento.
 - [`Data/`](https://github.com/Carlosbera7/ExperimentoBaseOriginal/tree/main/Data): Pasta contendo o conjunto de dados e o Embeddings GloVe pré-treinados (necessário para execução).
-- ['Execução'](https://ideal-guacamole-gjg979rjvwhw956.github.dev/): O código pode ser executado diretamente no ambiente virtual.
+- [`Execução`](https://ideal-guacamole-gjg979rjvwhw956.github.dev/): O código pode ser executado diretamente no ambiente virtual.
 
 
