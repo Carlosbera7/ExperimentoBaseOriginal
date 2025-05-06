@@ -13,6 +13,23 @@ O experimento segue as etapas descritas no artigo:
    - Remoção de stopwords usando NLTK.
    - Remoção de pontuação e transformação para minúsculas.
 
+Exemplo do Pré-processamento de Texto :
+```
+Texto original:
+0    "não come mel, morde marimbondo"
+1    não tem pinto, tem orgulho !
+2    Não vê essa merda de Crepúsculo! Pra isso temo...
+3    não da tapa na bundinha, da cotovelada nas cos...
+4    o diminutivo INHO não acompanha a trajetória d...
+
+Texto processado:
+0    come mel morde marimbondo
+1    pinto orgulho
+2    vê merda crepúsculo pra cinebiografia chuck no...
+3    tapa bundinha cotovelada costas
+4    diminutivo inho acompanha trajetória homem ver...
+```
+
 3. **Extração de Features**:
    - Uso de embeddings pré-treinados GloVe com 300 dimensões para português.
    - Tokenização e padding das sequências de entrada.
@@ -54,18 +71,19 @@ Os resultados incluem:
 Exemplo de saída:
 ```
 
-Melhores parâmetros: {'eta': 0.3, 'gamma': 0.1}
-Melhor f1-score: 0.7851
+Melhores parâmetros: {'eta': 0.3, 'gamma': 1}
+Melhor f1-score: 0.9119742143432716
               precision    recall  f1-score   support
 
-           0       0.78      1.00      0.88       444
-           1       0.50      0.01      0.02       123
+           0       0.88      0.92      0.90       431
+           1       0.70      0.61      0.65       136
 
-    accuracy                           0.78       567
-   macro avg       0.64      0.50      0.45       567
-weighted avg       0.72      0.78      0.69       567
+    accuracy                           0.84       567
+   macro avg       0.79      0.76      0.78       567
+weighted avg       0.84      0.84      0.84       567
 ```
-![Figure_1](https://github.com/user-attachments/assets/895e3251-73d5-452d-b8ab-5b4f0aaf18f6)
+![original](https://github.com/user-attachments/assets/d467d316-bb93-4a0b-87b8-f191fa19bac8)
+
 
 ## Estrutura do Repositório
 -  [`Scripts/ClassificadorOriginal.py`](https://github.com/Carlosbera7/ExperimentoBaseOriginal/blob/main/Script/ClassificadorOriginal.py): Script principal para executar o experimento.
