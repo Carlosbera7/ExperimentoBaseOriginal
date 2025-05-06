@@ -17,19 +17,21 @@ def load_data(filepath):
     return pd.read_csv(filepath)
 
 def clean_text(text):
-    text = re.sub(r'[\^\w\s]', '', str(text).lower())  # Remove pontuação e converte o texto para minúsculas.
+    text = re.sub(r'[^\w\s]', '', str(text).lower())  # Remove pontuação e converte o texto para minúsculas.
     stop_words = set(stopwords.words('portuguese'))  # Define a lista de stopwords em português.
     words = [word for word in text.split() if word not in stop_words]  # Remove stopwords do texto.
     return ' '.join(words)  # Retorna o texto processado como uma única string.
 
 def preprocess_data(data):
     data['cleaned_text'] = data['text'].apply(clean_text)
+    print("Texto original:", data['text'].head())  # Exibe os primeiros textos originais.
+    print("Texto processado:", data['cleaned_text'].head())  # Exibe os primeiros textos processados.    
     return train_test_split(
         data['cleaned_text'],  # Texto processado.
         data['Hate.speech'],  # Rótulos binários (se é hate speech ou não).
         test_size=0.1,  # Define 10% dos dados como teste.
-        random_state=42,  # Garante que a divisão seja reprodutível.
-        stratify=data['Hate.speech']  # Garante que a divisão seja estratificada.
+        random_state=42  # Garante que a divisão seja reprodutível.
+        #stratify=data['Hate.speech']  # Garante que a divisão seja estratificada.
     )
 
 def tokenize_and_pad_sequences(X_train, X_test):
@@ -43,20 +45,20 @@ def tokenize_and_pad_sequences(X_train, X_test):
 
 def load_embeddings(filepath, tokenizer):
     embeddings_index = {}
-    with open(filepath, encoding='utf-8') as f:  # Abre o arquivo de embeddings GloVe.
-        for line in f:  # Itera sobre as linhas do arquivo.
-            values = line.split()  # Divide cada linha em uma palavra e seus vetores.
-            word = values[0]  # A primeira palavra é a palavra do vocabulário.
-            try:
-                coefs = np.asarray([float(val.replace(',', '.')) for val in values[1:]], dtype='float32')  # Converte os valores em floats.
-                embeddings_index[word] = coefs  # Adiciona ao índice de embeddings.
-            except ValueError:
-                print(f"Ignoring line: {line.strip()}")  # Ignora linhas que não seguem o formato esperado.
-    embedding_matrix = np.zeros((len(tokenizer.word_index) + 1, 300))  # Inicializa uma matriz de zeros.
-    for word, i in tokenizer.word_index.items():  # Itera sobre o vocabulário do tokenizador.
-        embedding_vector = embeddings_index.get(word)  # Busca o vetor de embedding para a palavra.
+    with open(filepath, encoding='utf-8') as f:
+        for line in f:
+            values = line.split()
+            if len(values) != 301:  # Ignora linhas com dimensões inesperadas
+                print(f"Ignorando linha inválida: {line.strip()}")
+                continue
+            word = values[0]
+            coefs = np.asarray([float(val.replace(',', '.')) for val in values[1:]], dtype='float32')
+            embeddings_index[word] = coefs
+    embedding_matrix = np.zeros((len(tokenizer.word_index) + 1, 300))
+    for word, i in tokenizer.word_index.items():
+        embedding_vector = embeddings_index.get(word)
         if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector  # Adiciona o vetor à matriz na posição correspondente.
+            embedding_matrix[i] = embedding_vector
     return embedding_matrix
 
 def build_lstm_model(embedding_matrix, input_length):
